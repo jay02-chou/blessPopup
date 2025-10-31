@@ -7,21 +7,10 @@
 			body {
 				margin: 0;
 				overflow: hidden;
-				/* background-color: #000;
-				color: white;
-				font-family: Arial, sans-serif; */
         background-image: url('tupi.jpg');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
-			}
-
-			.star {
-				position: absolute;
-				border-radius: 50%;
-				background: rgb(255, 246, 221);
-				animation: twinkling 1s infinite alternate,
-					moving 20s infinite alternate; /* 修改移动时长 */
 			}
 			.lastPopup {
 				position: fixed;
@@ -43,58 +32,14 @@
       .show{
         opacity: 1;
       }
-			@keyframes twinkling {
-				0% {
-					opacity: 0.5;
-				}
-				100% {
-					opacity: 1;
-				}
-			}
-
-			@keyframes moving {
-				0% {
-					transform: translate(0, 0);
-				}
-				100% {
-					transform: translate(
-						calc(50vw - 50%),
-						calc(50vh - 50%)
-					); /* 在视口中随机移动 */
-				}
-			}
 		</style>
 	</head>
 	<body>
+    <!--最后一个的弹窗-->
     <div class="lastPopup">人生原本是旷野</div>
   </body>
 	<script>
-		// const numStars = 800 // 星星数量
-		// const body = document.body
-
-		// for (let i = 0; i < numStars; i++) {
-		// 	const star = document.createElement('div')
-		// 	star.classList.add('star')
-
-		// 	const size = Math.random() * 3 + 1 // 星星大小
-		// 	const x = (Math.random() * 2 - 1) * window.innerWidth // 随机位置
-		// 	const y = (Math.random() * 2 - 1) * window.innerHeight
-
-		// 	star.style.width = `${size}px`
-		// 	star.style.height = `${size}px`
-		// 	star.style.left = `${x}px`
-		// 	star.style.top = `${y}px`
-
-		// 	body.appendChild(star)
-
-		// 	// 随机动画时长
-		// 	star.style.animationDuration = `${Math.random() * 1 + 0.5}s, ${
-		// 		Math.random() * 20 + 10
-		// 	}s` // 设置随机时长，移动时间增大
-		// 	star.style.animationDelay = `${Math.random() * 2}s`
-		// }
-	</script>
-	<script>
+    //dom列表
 		const popupList = []
 		// 祝福文字列表
 		const messages = [
@@ -114,6 +59,7 @@
 			'会回消息',
 			'你本来就是一个很好的人',
 		]
+    //颜色列表
 		const color = [
 			'#815c94',
 			'#ed5126',
