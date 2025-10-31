@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>祝福弹窗</title>
+		<style>
+			body {
+				margin: 0;
+				overflow: hidden;
+				/* background-color: #000;
+				color: white;
+				font-family: Arial, sans-serif; */
+        background-image: url('tupi.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+			}
+
+			.star {
+				position: absolute;
+				border-radius: 50%;
+				background: rgb(255, 246, 221);
+				animation: twinkling 1s infinite alternate,
+					moving 20s infinite alternate; /* 修改移动时长 */
+			}
+			.lastPopup {
+				position: fixed;
+				width: 250px;
+				height: 160px;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				background: linear-gradient(45deg, #b5697b, #ffcee0);
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 16px;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transition: .8s;
+			}
+      .show{
+        opacity: 1;
+      }
+			@keyframes twinkling {
+				0% {
+					opacity: 0.5;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+
+			@keyframes moving {
+				0% {
+					transform: translate(0, 0);
+				}
+				100% {
+					transform: translate(
+						calc(50vw - 50%),
+						calc(50vh - 50%)
+					); /* 在视口中随机移动 */
+				}
+			}
+		</style>
+	</head>
+	<body>
+    <div class="lastPopup">人生原本是旷野</div>
+  </body>
+	<script>
+		// const numStars = 800 // 星星数量
+		// const body = document.body
+
+		// for (let i = 0; i < numStars; i++) {
+		// 	const star = document.createElement('div')
+		// 	star.classList.add('star')
+
+		// 	const size = Math.random() * 3 + 1 // 星星大小
+		// 	const x = (Math.random() * 2 - 1) * window.innerWidth // 随机位置
+		// 	const y = (Math.random() * 2 - 1) * window.innerHeight
+
+		// 	star.style.width = `${size}px`
+		// 	star.style.height = `${size}px`
+		// 	star.style.left = `${x}px`
+		// 	star.style.top = `${y}px`
+
+		// 	body.appendChild(star)
+
+		// 	// 随机动画时长
+		// 	star.style.animationDuration = `${Math.random() * 1 + 0.5}s, ${
+		// 		Math.random() * 20 + 10
+		// 	}s` // 设置随机时长，移动时间增大
+		// 	star.style.animationDelay = `${Math.random() * 2}s`
+		// }
+	</script>
+	<script>
+		const popupList = []
+		// 祝福文字列表
+		const messages = [
+			'天天开心',
+			'谢谢你',
+			'做最棒的自己',
+			'不要熬夜',
+			'没有烦恼',
+			'好好吃饭',
+			'世界很大 开心第一',
+			'可爱',
+			'有趣',
+			'真诚',
+			'温柔',
+			'游戏很厉害',
+			'情绪稳定',
+			'会回消息',
+			'你本来就是一个很好的人',
+		]
+		const color = [
+			'#815c94',
+			'#ed5126',
+			'#c21f30',
+			'#e8b49a',
+			'#8E354A',
+			'#eeaa9c',
+			'#fc8c23',
+			'#481e1c',
+			'#4B6C8C',
+			'#1ba784',
+			'#B6D7A8',
+			'#945833',
+			'#d8e3e7',
+		]
+		// 随机生成弹窗
+		function createPopup() {
+			const popup = document.createElement('div')
+			// 随机大小和位置
+			const width = Math.floor(Math.random() * 40) + 180
+			const height = Math.floor(Math.random() * 30) + 70
+			const left = Math.floor(Math.random() * (window.innerWidth - width))
+			const top = Math.floor(
+				Math.random() * (window.innerHeight - height)
+			)
+
+			// 设置样式
+			popup.style.cssText = `
+                      position: fixed;
+                      width: ${width}px;
+                      height: ${height}px;
+                      left: ${left}px;
+                      top: ${top}px;
+                      background: ${
+							color[Math.floor(Math.random() * color.length)]
+						};
+                      border: 2px solid #f0f0f0;
+                      border-radius: 8px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 16px;
+                      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                  `
+
+			// 随机文字
+			popup.innerText =
+				messages[Math.floor(Math.random() * messages.length)]
+			document.body.appendChild(popup)
+			popupList.unshift(popup)
+		}
+		function createLastPopup() {
+			document.querySelector('.lastPopup').classList.add('show')
+		}
+    //删除弹窗
+		function startClearPopup() {
+			let count = 0
+			let interval = setInterval(() => {
+				if (count >= popupList.length) {
+					clearInterval(interval)
+					createLastPopup()
+					return
+				}
+				document.body.removeChild(popupList[count])
+				count++
+			}, 10)
+		}
+		// 生成弹窗（间隔50ms，共220个）
+		let count = 0
+		const interval = setInterval(() => {
+			createPopup()
+			count++
+			if (count >= 150) {
+				setTimeout(() => {
+					startClearPopup()
+				}, 800)
+				clearInterval(interval)
+			}
+		}, 50)
+	</script>
+</html>
